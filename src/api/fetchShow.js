@@ -7,5 +7,6 @@ export const fetchShow = () => {
       )
       .then(res => {
        return res
-      });
+      })
+      .catch(err=> console.log(err) )
   };

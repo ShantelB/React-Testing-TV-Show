@@ -14,30 +14,22 @@ export default function App() {
   const [seasons, setSeasons] = useState([]);
   const [selectedSeason, setSelectedSeason] = useState("");
   const episodes = seasons[selectedSeason] || [];
-
   useEffect(() => {
+   console.log(fetchShow)
     fetchShow()
-    // const fetchShow = () => {
-      // axios
-      //   .get(
-      //     "https://api.tvmaze.com/singlesearch/shows?q=stranger-things&embed=episodes"
-      //   )
         .then(res => {
+          console.log(res.data)
           setShow(res.data);
           setSeasons(formatSeasons(res.data._embedded.episodes));
-        });
-    // };
-    
+        }).catch(err=> console.log(err) )
   }, []);
-
   const handleSelect = e => {
     setSelectedSeason(e.value);
   };
-
   if (!show) {
     return <h2>Fetching data...</h2>;
   }
-
+console.log(show)
   return (
     <div className="App">
       <img className="poster-img" src={show.image.original} alt={show.name} />
@@ -47,6 +39,7 @@ export default function App() {
         options={Object.keys(seasons)}
         onChange={handleSelect}
         value={selectedSeason || "Select a season"}
+        data-testid='select a season'
         placeholder="Select an option"
       />
       <Episodes episodes={episodes} />
