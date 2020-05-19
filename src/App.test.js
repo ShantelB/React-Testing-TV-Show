@@ -614,6 +614,7 @@ test('renders App without errors', () => {
 test('renders App without errors', async() => {
     mockFetchShow.mockResolvedValueOnce(episodesData)
    const {getByText, queryAllByTestId, queryByText} = render(<App />)
+   await waitFor(() => expect(queryAllByTestId(/select an option/i)).toHaveLength(0));
 });
 
 
